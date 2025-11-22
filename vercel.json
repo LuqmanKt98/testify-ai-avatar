@@ -1,0 +1,5 @@
+{
+  "buildCommand": "cd testify-nextjs && npm install && npm run build",
+  "outputDirectory": "testify-nextjs/.next",
+  "installCommand": "cd testify-nextjs && npm install"
+}
