@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Brand Color Palette */
+  --color-brand-navy-50: #F0F4F8;
+  --color-brand-navy-100: #D9E2EC;
+  --color-brand-navy-200: #BCCCDC;
+  --color-brand-navy-300: #9FB3C8;
+  --color-brand-navy-400: #829AB1;
+  --color-brand-navy-500: #627D98;
+  --color-brand-navy-600: #486581;
+  --color-brand-navy-700: #334E68;
+  --color-brand-navy-800: #243B53;
+  --color-brand-navy-900: #0D2340;
+  --color-brand-navy-950: #071829;
+
+  --color-brand-gold-50: #FFFBEB;
+  --color-brand-gold-100: #FEF3C7;
+  --color-brand-gold-200: #FDE68A;
+  --color-brand-gold-300: #FCD34D;
+  --color-brand-gold-400: #FBBF24;
+  --color-brand-gold-500: #C9A33A;
+  --color-brand-gold-600: #B8932F;
+  --color-brand-gold-700: #A17F26;
+  --color-brand-gold-800: #7C6220;
+  --color-brand-gold-900: #5C4918;
+
+  --color-brand-ivory: #F8F6EF;
+  --color-brand-lightBg: #FAFAFA;
+  --color-brand-ink: #1B2430;
+  --color-brand-line: #E6E3DA;
+
+  /* Font Family */
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+
+  /* Line Heights */
+  --line-height-xs: 1rem;
+  --line-height-sm: 1.25rem;
+  --line-height-base: 1.5rem;
+  --line-height-lg: 1.75rem;
+  --line-height-xl: 1.75rem;
+  --line-height-2xl: 2rem;
+  --line-height-3xl: 2.25rem;
+  --line-height-4xl: 2.5rem;
+  --line-height-5xl: 1;
+
+  /* Spacing */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  --spacing-128: 32rem;
+
+  /* Border Radius */
+  --radius-brand: 18px;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Shadows */
+  --shadow-brand: 0 4px 14px 0 rgba(13, 35, 64, 0.1);
+  --shadow-brand-lg: 0 10px 30px 0 rgba(13, 35, 64, 0.15);
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.3s ease-in-out;
+  --animate-slide-up: slideUp 0.3s ease-out;
+  --animate-slide-down: slideDown 0.3s ease-out;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes shimmer {
+    from { background-position: -1000px 0; }
+    to { background-position: 1000px 0; }
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  @keyframes recording-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+  }
+
+  @keyframes waveform {
+    0%, 100% { height: 20%; }
+    25% { height: 60%; }
+    50% { height: 40%; }
+    75% { height: 80%; }
+  }
+}
+
+/* Base Styles */
+@layer base {
+  * {
+    border-color: theme(colors.gray.200);
+  }
+
+  body {
+    background-color: #F9FAFB;
+    color: #111827;
+    font-family: theme(fontFamily.sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  .focus-brand:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #0D2340;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #0D2340 0%, #C9A33A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shimmer {
+    animation: shimmer 2s infinite;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+    background-size: 1000px 100%;
+  }
+
+  .animate-pulse-dot {
+    animation: pulse-dot 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-recording-pulse {
+    animation: recording-pulse 2s infinite;
+  }
+
+  .animate-waveform {
+    animation: waveform 0.6s ease-in-out infinite;
+  }
+}
+
+/* Print Styles for PDF Export */
+@media print {
+  /* Hide navigation and buttons */
+  header button,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Optimize page layout */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Ensure content fits on page */
+  .max-w-7xl {
+    max-width: 100% !important;
+    padding: 20px !important;
+  }
+
+  /* Show all tabs when printing */
+  .print\:block {
+    display: block !important;
+  }
+
+  /* Add page break before each major section */
+  main > div:not(:first-child) {
+    page-break-before: always;
+    margin-top: 0 !important;
+    padding-top: 20px !important;
+  }
+
+  /* Page breaks */
+  .page-break-before {
+    page-break-before: always;
+  }
+
+  .page-break-after {
+    page-break-after: always;
+  }
+
+  .page-break-inside-avoid {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure colors print correctly */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Remove shadows and transitions for print */
+  * {
+    box-shadow: none !important;
+    transition: none !important;
+  }
+
+  /* Ensure text is readable */
+  body, p, div, span {
+    font-family: Arial, sans-serif !important;
+  }
+
+  /* Add section titles for print */
+  main > div:nth-child(1)::before {
+    content: "Overview";
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0D2340;
+    border-bottom: 2px solid #0D2340;
+    padding-bottom: 10px;
+  }
+
+  main > div:nth-child(2)::before {
+    content: "Detailed Analysis";
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0D2340;
+    border-bottom: 2px solid #0D2340;
+    padding-bottom: 10px;
+  }
+
+  main > div:nth-child(3)::before {
+    content: "Transcript";
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0D2340;
+    border-bottom: 2px solid #0D2340;
+    padding-bottom: 10px;
+  }
+}
