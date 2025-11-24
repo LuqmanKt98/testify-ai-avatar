@@ -15,6 +15,7 @@ const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);
 
 console.log('🔧 Environment variables:');
 console.log('PORT from .env:', process.env.PORT);
@@ -29,7 +30,11 @@ console.log('Using PORT:', PORT);
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: true, // Allow all origins in development
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.length === 0) return callback(null, true);
+    return callback(null, allowedOrigins.includes(origin));
+  },
   credentials: true
 }));
 
