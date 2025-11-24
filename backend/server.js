@@ -1,6 +1,10 @@
-// Load environment variables first
+// Load environment variables in local/dev only
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+try {
+  if (!process.env.VERCEL) {
+    require('dotenv').config({ path: path.join(__dirname, '.env') });
+  }
+} catch (_) {}
 
 const express = require('express');
 const cors = require('cors');
@@ -81,15 +85,19 @@ app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
 
-const server = app.listen(PORT, () => {
-  console.log(`🚀 Testify Backend Server running on port ${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/health`);
-  console.log(`🎙️ Realtime API WebSocket: ws://localhost:${PORT}/api/realtime`);
-});
+let server = null;
+if (!process.env.VERCEL) {
+  server = app.listen(PORT, () => {
+    console.log(`🚀 Testify Backend Server running on port ${PORT}`);
+    console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🔗 Health check: http://localhost:${PORT}/health`);
+    console.log(`🎙️ Realtime API WebSocket: ws://localhost:${PORT}/api/realtime`);
+  });
 
-// Setup WebSocket server for Realtime API
-const { setupRealtimeWebSocket } = require('./routes/realtime');
-setupRealtimeWebSocket(server);
+  // Setup WebSocket server for Realtime API only in long-running environments
+  const { setupRealtimeWebSocket } = require('./routes/realtime');
+  setupRealtimeWebSocket(server);
+}
 
+// Export Express app for serverless environments (Vercel @vercel/node)
 module.exports = app;

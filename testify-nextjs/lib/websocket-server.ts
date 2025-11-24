@@ -10,7 +10,7 @@ export function initializeWebSocket(server: HTTPServer) {
 
   io = new SocketIOServer(server, {
     cors: {
-      origin: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+      origin: process.env.NEXT_PUBLIC_APP_URL || undefined,
       methods: ['GET', 'POST'],
     },
   });
